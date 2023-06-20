@@ -60,7 +60,7 @@ class PostsController extends AbstractController
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('posts/edit.html.twig', [
+        return $this->render('posts/edit.html.twig', [
             'post' => $post,
             'form' => $form,
         ]);
