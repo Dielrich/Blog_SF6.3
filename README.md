@@ -14,8 +14,9 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 ```
 
 ## SLUG :
-```
+
 composer require stof/doctrine-extensions-bundle
-[lien Documentation](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html)
-[lien Configuration](https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md)
+```
+<a href="https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html">Documentation</a>
+<a href="https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md">Configuration</a>
 ```
