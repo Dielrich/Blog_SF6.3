@@ -4,7 +4,7 @@
 
 ***
 
-##Les Entités
+## Les Entités
 ```
 symfony console doctrine:database:create (Création de la BDD)
 symfony console make:entity (Création de l'entité)
@@ -15,7 +15,9 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 
 ## SLUG :
 
-`composer require stof/doctrine-extensions-bundle`
+composer require stof/doctrine-extensions-bundle
+___
 
-<a href="https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html">Documentation</a>
-<a href="https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md">Configuration</a>
+[Documentation](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html)
+___
+[Configuration](https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md)
