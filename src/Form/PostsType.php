@@ -13,6 +13,7 @@ class PostsType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('slug')
             ->add('content')
         ;
     }
