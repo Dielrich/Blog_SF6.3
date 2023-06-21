@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Posts{% endblock %}
+{% block title %}Nouvelle publication{% endblock %}
 
 {% block main %}
-    <h1 style="color: lime;">Create new Posts</h1>
+    <h1 style="color: lime;">Créer un nouvel article</h1>
 
     {{ include('posts/_form.html.twig', {'button_label': 'Publier'}) }}
 
-    <a href="{{ path('app_posts_index') }}">back to list</a>
+    <a href="{{ path('app_posts_index') }}">Retour au sommaire</a>
 {% endblock %}

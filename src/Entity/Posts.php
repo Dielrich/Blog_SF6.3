@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+//SLUG
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -21,6 +23,7 @@ class Posts
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -60,13 +63,6 @@ class Posts
     public function getSlug(): ?string
     {
         return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 
     public function getContent(): ?string

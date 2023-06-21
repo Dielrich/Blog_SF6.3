@@ -22,7 +22,7 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, PostsRepository $postsRepository): Response
     {
         $post = new Posts();
@@ -41,7 +41,7 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Posts $post): Response
     {
         return $this->render('posts/show.html.twig', [
@@ -49,7 +49,7 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Posts $post, PostsRepository $postsRepository): Response
     {
         $form = $this->createForm(PostsType::class, $post);
@@ -67,7 +67,7 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Posts $post, PostsRepository $postsRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
