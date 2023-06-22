@@ -19,7 +19,8 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 symfony console make:user (Création de l'utilisateur)
 symfony console make:auth (Authentification -->> login/logout)
 symfony console make:registration-form (Création de logique de connexion)
-composer require symfonycasts/verify-email-bundle
+composer require symfonycasts/verify-email-bundle (Bundle de vérification email)
+
 ```
 
 ## Les Entités :
