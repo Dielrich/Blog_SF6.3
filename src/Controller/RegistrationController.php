@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('app_main_home')
+            return $this->redirectToRoute('app_main_home');
         } 
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
