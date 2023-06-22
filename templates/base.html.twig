@@ -37,10 +37,11 @@
 
                     {### MENU DROITE ###}
                     <div class="navbar-nav ms-auto">
-                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                        <div class="nav-item dropdown">
+                        {% if app.user %}
+                            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                            <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{{ path('app_main_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Menu
+                                {{ app.user.userIdentifier }}
                             </a>
                             <ul class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ path('app_main_home') }}">Action</a>
@@ -49,6 +50,10 @@
                                 <a class="dropdown-item" href="{{ path('app_main_home') }}">Something else here</a>
                             </ul>
                         </div>
+                        {% else %}
+                            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                        {% endif %}
+                        
                     </div>
 
                     {### RECHERCHE ###}
@@ -62,8 +67,20 @@
         </nav>
     </header>
 
-    <main class="container-fluid-md container mt-5 px-4 px-lg-0 pt-5">
-        {% block main %}{% endblock %}
+    <main class="container-lg mt-5 pt-4 px-4 px-lg-0">
+    {### Container pour les messages flash ###}
+        <div id="messages" class="container-lg p-0 m-0 mx-auto">
+            <div class="row p-0 m-0">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} col-12" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+            </div>
+        </div>
+
+    {### MAIN ###}
+    {% block main %}{% endblock %}
         
     </main>
     </body>

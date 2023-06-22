@@ -13,6 +13,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
+            $this->addFlash('danger', 'Veuillez vous déconnecter d\'abord');
             return $this->redirectToRoute('app_main_home');
         }
 
