@@ -17,6 +17,7 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 ```
 symfony console make:user (Création de l'utilisateur)
 symfony console make:auth (Authentification -->> login/logout)
+```
 
 ## Les Entités :
 ```
@@ -28,10 +29,9 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 ```
 
 ## SLUG :
-```
+
 composer require stof/doctrine-extensions-bundle
-```
-##
+***
 [Documentation](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html)
-##
+***
 [Configuration](https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md)
