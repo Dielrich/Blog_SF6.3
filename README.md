@@ -4,6 +4,15 @@
 
 ***
 
+## Pour l'installer
+```
+composer install (installation)
+composer update (Mise à jour)
+symfony console doctrine:database:create (Création de la BDD en ayant renseigné le .ENV)
+symfony console make:migration (Création d'une nouvelle migration)
+symfony console doctrine:migrations:migrate (Application de la migration en BDD)
+```
+
 ## Les Entités
 ```
 symfony console doctrine:database:create (Création de la BDD)
@@ -14,10 +23,10 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 ```
 
 ## SLUG :
-
+```
 composer require stof/doctrine-extensions-bundle
-___
-
+```
+##
 [Documentation](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html)
-___
+##
 [Configuration](https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md)
