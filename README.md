@@ -4,7 +4,7 @@
 
 ***
 
-## Pour l'installer
+## Pour l'installer :
 ```
 composer install (installation)
 composer update (Mise à jour)
@@ -13,7 +13,12 @@ symfony console make:migration (Création d'une nouvelle migration)
 symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 ```
 
-## Les Entités
+## l'Authentification :
+```
+symfony console make:user (Création de l'utilisateur)
+symfony console make:auth (Authentification -->> login/logout)
+
+## Les Entités :
 ```
 symfony console doctrine:database:create (Création de la BDD)
 symfony console make:entity (Création de l'entité)
