@@ -11,12 +11,15 @@ composer update (Mise à jour)
 symfony console doctrine:database:create (Création de la BDD en ayant renseigné le .ENV)
 symfony console make:migration (Création d'une nouvelle migration)
 symfony console doctrine:migrations:migrate (Application de la migration en BDD)
+
 ```
 
 ## l'Authentification :
 ```
 symfony console make:user (Création de l'utilisateur)
 symfony console make:auth (Authentification -->> login/logout)
+symfony console make:registration-form (Création de logique de connexion)
+composer require symfonycasts/verify-email-bundle
 ```
 
 ## Les Entités :
