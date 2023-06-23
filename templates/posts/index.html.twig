@@ -9,11 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
+                <th>Titre</th>
                 <th>Slug</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>Description</th>
+                <th>Créé le</th>
+                <th>Modifier le</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,20 +24,20 @@
                 <td>{{ post.title }}</td>
                 <td>{{ post.slug }}</td>
                 <td>{{ post.content }}</td>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_posts_show', {'slug': post.slug}) }}">Voir</a>
-                    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">Modifier</a>
+                <td>{{ post.createdAt ? post.createdAt|date('d M Y H:i:s') : '' }}</td>
+                <td>{{ post.updatedAt ? post.updatedAt|date('d M Y H:i:s') : '' }}</td>
+                <td class="d-flex">
+                    <a class="btn btn-outline-success mx-1" href="{{ path('app_posts_show', {'slug': post.slug}) }}">Voir</a>
+                    <a class="btn btn-outline-warning mx-1" href="{{ path('app_posts_edit', {'slug': post.slug}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">Aucun article en ligne</td>
+                <td colspan="7">Actuellement aucun article</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_posts_new') }}">Créer un nouvel article</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_posts_new') }}">Créer un nouvel article</a>
 {% endblock %}
