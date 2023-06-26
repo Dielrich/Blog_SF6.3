@@ -84,7 +84,7 @@
 
         {### Container pour les messages flash ###}
         <div id="messages" class="container-lg p-0 m-0 mx-auto">
-            <div class="row p-0 m-0">
+            <div class="row p-0 m-0 text-center">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="alert alert-{{ label }} col-12" role="alert">{{ message }}</div>
