@@ -1,0 +1,32 @@
+.bg-primary {
+	background-color: rgb(44, 72, 102)!important;
+}
+
+.text-primary {
+	color: #ffb!important;	
+}
+
+.link-primary {
+	color: #ffb!important;
+}
+
+.link-primary:hover, .link-primary:focus {
+  	color: #bff!important;
+}
+
+.link-secondary {
+	color: #bff!important;
+}
+
+.link-secondary:hover, .link-secondary:focus {
+  	color: #ffb!important;
+}
+
+.fw-normal {
+	font-size: 0.75rem!important;
+}
+
+.active {
+	color: #ffb!important;
+	font-weight: bold!important;
+}
