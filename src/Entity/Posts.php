@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 //SLUG
 use Gedmo\Mapping\Annotation as Gedmo;
+// CONSTRAINTS
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -19,6 +21,13 @@ class Posts
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank (message: 'Merci de remplir ce champs !')]
+    #[Assert\Length(
+        min: 10,
+        max: 100,
+        minMessage: 'Le titre doit comporter au minimum {{ limit }} caractères',
+        maxMessage: 'Le tite ne doit pas dépasser {{ limit }} caractères',
+    )]
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
@@ -26,6 +35,11 @@ class Posts
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
+    #[Assert\NotBlank(message: 'Merci de remplir ce champs !')]
+    #[Assert\Length(
+        min: 20,
+        minMessage: 'Le contenu doit comporter au minimum {{ limit }} caractères !',
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 

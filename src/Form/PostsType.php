@@ -21,6 +21,7 @@ class PostsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Posts::class,
+            'attr' => ['novalidate' => 'novalidate'], // comment me to reactivate the HTML5 validation 
         ]);
     }
 }

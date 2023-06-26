@@ -10,7 +10,7 @@
     </div>
 
     <div class="row mb-3">
-        <p class="h5 col-12 text-center">par <span class="text-primary-emphasis">{#{{ post.author.username }}#}</span></p>
+        <p class="h5 col-12 text-center">par <span class="text-primary-emphasis">{{ post.author.username }}</span></p>
     </div>
 
 
@@ -38,10 +38,10 @@
                 {# Si l'utilisateur a le rôle admin, on affiche un menu avec un bouton permettant de supprimer/modifier la publication #}
                 {% if is_granted('ROLE_ADMIN') %}     
                     <div class="card-footer d-flex d-row justify-content-evenly mt-3">
-                        <a href="{{ path('app_blog_edit_post', {'slug': post.slug}) }}" class="btn btn-outline-success pe-3">
+                        <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}" class="btn btn-outline-success pe-3">
                             <i class="fas fa-edit me-1"></i>Modifier
                         </a>                                
-                        {{ include('blog/_delete_form.post.html.twig') }}
+                        {{ include('posts/_delete_form.html.twig') }}
                     </div>
                 {% endif %} 
             </div>

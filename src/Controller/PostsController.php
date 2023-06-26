@@ -30,6 +30,9 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            // L'auteur est enregistré avec l'utilisateur connecté
+            $post->setAuthor($this->getUser());
             $postsRepository->save($post, true);
 
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);

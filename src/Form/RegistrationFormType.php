@@ -14,7 +14,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -28,26 +30,36 @@ class RegistrationFormType extends AbstractType
                     
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'Accepter les conditions d\'utilisation *',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions d\'utilisation',
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les 2 champs doivents être identiques !',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options' => ['label' => 'Renseigner un mot de passe*',
+                                    'help' => '(8 caractères minmum, 1 majuscule, 1 minuscule, 1 caractère spécial et 1 chiffre.)'],
+                'second_options' => ['label' => 'Confirmer votre mot de passe*'],
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci d\'entrer un Mot de Passe',
+                        'message' => 'Merci de renseigner un Mot de Passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre Mot de Passe doit comporter au minimum {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
+                    ]),
+                    new Regex([
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#?!~|`%§@$€£%^&µ*°²¨+={}()[\]_,;.:-]).{8,4096}$/',
+                        'message' => 'Le mot de passe doit comporter 8 caractères minimum avec un moins une lettre en majuscule et minuscule, un chiffre et un caractère spécial',
                     ]),
                 ],
             ])
@@ -58,6 +70,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
+            'attr' => ['novalidate' => 'novalidate'], // comment me to reactivate the HTML5 validation
         ]);
     }
 }

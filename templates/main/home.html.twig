@@ -52,7 +52,7 @@
 
                             {# Date et auteur de la publication et de la modification si nécessaire #}                            
                             <div class="card-footer bg-primary text-muted py-2 fw-normal">
-                                Publié le <span class="text-warning-emphasis">{{ post.createdAt|date('d/m/Y à H\\hi') }}</span> par <span class="text-info-emphasis">{#{{ post.author.username }}#}</span>
+                                Publié le <span class="text-warning-emphasis">{{ post.createdAt|date('d/m/Y à H\\hi') }}</span> par <span class="text-info-emphasis">{{ post.author.username }}</span>
                                 {% if post.updatedAt %}
                                     et modifié le <span class="text-warning-emphasis">{{ post.updatedAt|date('d/m/Y à H\\hi') }}</span>
                                 {% endif %}

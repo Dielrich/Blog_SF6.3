@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+// CONSTRAINTS
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Ce compte existe déjà !!')]
@@ -19,9 +21,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Email]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 4,
+        max: 25,
+        minMessage: 'Votre nom d\'utilisateur doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Votre nom d\'utilisateur ne doit pas dépasser {{ limit }} caractères',
+    )]
     #[ORM\Column(length: 25, unique: true)]
     private ?string $username = null;
 

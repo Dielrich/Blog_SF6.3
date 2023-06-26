@@ -37,9 +37,9 @@
                 <div class="navbar-nav">
                     <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}" href="{{ path('app_posts_index') }}">Blog</a>
                     <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{ path('app_main_contact') }}">Contactez-nous</a>
-               {#      {% if app.user %} #}
+                    {% if is_granted('ROLE_AUTHOR') %}
                         <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{ path('app_posts_new') }}"> Nouvelle Publication</a>
-{#                     {% endif %}     #}
+                    {% endif %}
                 </div>
 
 
@@ -51,7 +51,7 @@
                         <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                         <div class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="{{ path('app_main_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ app.user.userIdentifier }}
+                            {{ app.user.username }}
                           </a>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ path('app_main_home') }}">Action</a>
