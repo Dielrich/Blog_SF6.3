@@ -3,22 +3,36 @@
 {% block title %}Inscription{% endblock %}
 
 {% block main %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
 
-    <h1 style="color: lime;">Inscription</h1>
+<div class="row mt-5">
+    <div class="col-12 col-lg-8 offset-lg-2 bg-primary rounded px-2 px-lg-5 py-2 my-5">
 
-    {{ form_errors(registrationForm) }}
+        <h1 class="h2 col-12 text-primary text-center mb-4">Inscription</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de Passe'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
 
-        <button type="submit" class="btn btn-outline-secondary">S'inscrire</button>
-    {{ form_end(registrationForm) }}
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+
+            {{ form_row(registrationForm.email) }}
+
+            {{ form_row(registrationForm.username) }}        
+
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de Passe'
+            }) }}
+
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <button type="submit" class="btn btn-outline-info w-100 mb-4">S'incrire</button>
+        {{ form_end(registrationForm) }}
+
+        <a href="{{ path('app_login') }}" class="btn w-100 btn-outline-light w-100 mb-4">Annuler</a>          
+
+    </div>
+</div>
+
 {% endblock %}

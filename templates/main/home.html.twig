@@ -1,11 +1,74 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Accueil{% endblock %}
 
 
 {% block main %}
-    <div>
-        <h1 style="color: lime;">{{ controller_name }}</h1>
-        <p class="text-center text-success my-5"> Bienvenue sur le Blog de la formation #2026#MACON. Ce site à été généré dans la joie, la bonne humeur et la souffrance de Symfony. Bonne visite !</p>
+
+    {# Titre h1 #}
+    <div class="row">
+        <h1 class="col-12 text-center text-primary mt-3 mb-5">BLOG SYMFONY 6.3</h1>
     </div>
+
+    {# Paragraphe de présentation #}
+    <div class="row bg-primary p-2">
+        <h2 class=" text-primary text-center col-12 my-3">Structure de Blog avec SYMFONY 6.3</h2>
+
+        <a class="text-center text-info text-uppercase" href="https://github.com/VinceFormateur/BLOG_SF6.3" target="_blank">
+            git clone https://github.com/VinceFormateur/BLOG_SF6.git
+        </a>
+
+        <p class="col-12 col-md-10 offset-md-1 text-center my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad asperiores aut commodi consequatur, cupiditate, dolor dolorum est, explicabo in iste mollitia natus necessitatibus odio officia possimus quasi quia quibusdam ratione reiciendis sed sequi soluta suscipit unde vel veritatis voluptate? Aperiam dolorem porro quo ut voluptas.</p>
+    </div>
+
+    {# Affichage des dernières publications #}
+    <div class="row mt-5 p-2">
+        <div class="col-12 col-md-8 offset-md-2">
+
+            <div class="row">
+                <h2 class="col-12 text-title-h2 text-center mb-4">Nos {{posts|length}} dernières publications</h2>
+            </div>
+
+            {###### Boucle pour parcourir tous les publications à afficher #####}
+            {% for post in posts %}
+
+                <div class="row p-2">
+                    <div class="col-12">
+
+                        <div class="card my-3 bg-body-tertiary">
+                            <div class="card-header bg-primary text-uppercase">
+                                {# Titre de la publication, cliquable vers la page détaillée de celle-ci #}
+                                <a class="text-decoration-none link-primary" href="{{ path('app_posts_show', {'slug': post.slug}) }}">
+                                    {{ post.title }}
+                                </a>
+                            </div>
+
+                            <div class="card-body">
+                                {# Affichage du contenu de la publication, tronqué à 600 caractères, suivi de "..." et d'un lien "lire la suite" #}
+                                {{ post.content|slice(0, 600) }}  ...
+                                <a class="text-decoration-none link-secondary" href="{{ path('app_posts_show', {'slug': post.slug}) }}"> Lire la suite</a>
+                            </div>
+
+                            {# Date et auteur de la publication et de la modification si nécessaire #}                            
+                            <div class="card-footer bg-primary text-muted py-2 fw-normal">
+                                Publié le <span class="text-warning-emphasis">{{ post.createdAt|date('d/m/Y à H\\hi') }}</span> par <span class="text-info-emphasis">{#{{ post.author.username }}#}</span>
+                                {% if post.updatedAt %}
+                                    et modifié le <span class="text-warning-emphasis">{{ post.updatedAt|date('d/m/Y à H\\hi') }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            {% else %}
+                <div class="row">
+                    <p class="col-12 text-center alert alert-warning">Aucune publication à afficher.</p>
+                </div>
+            {% endfor %}                
+           
+        </div>
+    </div>
+
 {% endblock %}
