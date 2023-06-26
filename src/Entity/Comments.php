@@ -27,6 +27,10 @@ class Comments
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Posts $post = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $author = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +78,18 @@ class Comments
     public function setPost(?Posts $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Users
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Users $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
