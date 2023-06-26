@@ -38,6 +38,10 @@ class Posts
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comments::class)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $author = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -126,6 +130,18 @@ class Posts
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Users
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Users $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
