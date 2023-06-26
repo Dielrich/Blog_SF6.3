@@ -1,9 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sommaire{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block main %}
-    <h1 style="color: lime;">Sommaire</h1>
+
+    {######### AFFICHAGE DES PUBLICATIONS ##########}
+    <div class="row m-0 p-0">
+
+        {% for post in posts %}
+
+            <div class="col-12 col-md-6 m-0 p-0">
+                <div class="card m-3 bg-body-tertiary">
+                    <div class="card-header bg-primary text-uppercase">
+                        {# Titre de la publication, cliquable vers la page détaillée de celle-ci #}
+                        <a class="text-decoration-none link-primary" href="{{ path('app_posts_show', {'slug': post.slug}) }}">{{ post.title }}</a>
+                    </div>
+
+                    <div class="card-body">
+                        {# Date et auteur de la publication et de la modification si nécessaire #}
+                        <div class="text-right text-muted mb-2 ms-auto fw-normal">
+                            Publié le <span class="text-warning-emphasis">{{ post.createdAt|date('d/m/Y à H\\hi') }}</span> par <span class="text-info-emphasis">{#{{ post.author.username }}#}</span>
+                            {% if post.updatedAt %}
+                                et modifié le <span class="text-warning-emphasis">{{ post.updatedAt|date('d/m/Y à H\\hi') }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-2">
+                            {# Affichage du contenu de la publication, tronqué à 700 caractères, suivi de "..." et d'un lien "lire la suite" #}
+                            {{ post.content|slice(0, 700) }}  ...
+                            <a class="text-decoration-none link-secondary" href="{{ path('app_posts_show', {'slug': post.slug}) }}"> Lire la suite</a>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+
+        {% else %}
+            <p class="col-12 text-center alert alert-warning">Aucune publication à afficher</p>
+        {% endfor %}   
+    </div>       
+
+
 
     <table class="table">
         <thead>
@@ -27,8 +63,9 @@
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_posts_show', {'slug': post.slug}) }}">Voir</a>
-                    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">Modifier</a>
+                    <a href="{{ path('app_posts_show', {'slug': post.slug}) }}">show</a>
+                    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">edit</a>
+                    {{ include('posts/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -39,5 +76,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_posts_new') }}">Créer un nouvel article</a>
+    <a href="{{ path('app_posts_new') }}">Create new</a>
 {% endblock %}

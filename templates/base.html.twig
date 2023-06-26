@@ -1,70 +1,102 @@
 <!DOCTYPE html>
-<html lang="fr-FR" data-bs-theme="dark">
+<html lang="FR" data-bs-theme="dark">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>{% block title %}Blog_SF6.3{% endblock %}</title>
-
-
 
         {% block stylesheets %}
             <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">            
         {% endblock %}
 
         {% block javascripts %}
             <script defer src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
         {% endblock %}
     </head>
+
+
     <body>
+    {# Page en cours #}
     {% set page = app.request.get('_route') %}
-    {### HEADER ###}
+
+    {###  HEADER  ###}  
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top bg-body-secondary opacity-75">
+        <nav class="navbar navbar-expand-lg fixed-top bg-primary opacity-75">
+          <div class="container-fluid">
 
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('app_main_home') }}">BLOG_SF6.3</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    {### MENU GAUCHE ###}
-                    <div class="navbar-nav">
-                        <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}" href="{{ path('app_posts_index') }}">Blog</a>
-                        <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{ path('app_main_contact') }}">Contact</a>
-                        <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{ path('app_posts_new') }}">Nouvelle Publication</a>
-                    </div>
+            <a class="navbar-brand link-secondary" href="{{ path('app_main_home') }}">BLOG_SF6.3</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    {### MENU DROITE ###}
-                    <div class="navbar-nav ms-auto">
-                        <a class="nav-link">Se connecter</a>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{{ path('app_main_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Menu
-                            </a>
-                            <ul class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ path('app_main_home') }}">Action</a>
-                                <a class="dropdown-item" href="{{ path('app_main_home') }}">Another action</a>
-                                <hr class="dropdown-divider">
-                                <a class="dropdown-item" href="{{ path('app_main_home') }}">Something else here</a>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-                    {### RECHERCHE ###}
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
-                    </form>
+                {###  MENU GAUCHE  ###} 
+                <div class="navbar-nav">
+                    <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}" href="{{ path('app_posts_index') }}">Blog</a>
+                    <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{ path('app_main_contact') }}">Contactez-nous</a>
+               {#      {% if app.user %} #}
+                        <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{ path('app_posts_new') }}"> Nouvelle Publication</a>
+{#                     {% endif %}     #}
                 </div>
-            </div>
 
+
+                {###  MENU DROITE  ###} 
+                <div class="navbar-nav ms-auto">
+
+                    {% if app.user %}
+
+                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                        <div class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="{{ path('app_main_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.userIdentifier }}
+                          </a>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('app_main_home') }}">Action</a>
+                            <a class="dropdown-item" href="{{ path('app_main_home') }}">Another action</a>
+                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="{{ path('app_main_home') }}">Something else here</a>
+                          </div>
+                        </div>       
+
+                    {% else %}
+
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>        
+                                        
+                    {% endif %}                                       
+
+                </div>
+
+                {###  RECHERCHE  ###}             
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit">Recherche</button>
+                </form>
+            
+            </div>
+          </div>
         </nav>
     </header>
 
-    <main class="container-fluid-md container mt-5 px-4 px-lg-0 pt-5">
-        {% block main %}{% endblock %}
-        
+    <main class="container-lg mt-5 pt-4 px-4 px-lg-0">
+
+        {### Container pour les messages flash ###}
+        <div id="messages" class="container-lg p-0 m-0 mx-auto">
+            <div class="row p-0 m-0 text-center">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} col-12" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+            </div>
+        </div>     
+
+        {### MAIN ###}
+        {% block main %}{% endblock %}   
     </main>
+       
+
     </body>
 </html>

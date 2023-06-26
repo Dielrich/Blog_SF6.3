@@ -3,9 +3,15 @@
 {% block title %}Nouvelle publication{% endblock %}
 
 {% block main %}
-    <h1 style="color: lime;">Créer un nouvel article</h1>
 
-    {{ include('posts/_form.html.twig', {'button_label': 'Publier'}) }}
+    <div class="row mt-5">
+        <div class="col-12 bg-primary rounded p-4">
+            <h1 class="h2 col-12 text-primary text-center mb-5">Nouvelle publication</h1>
 
-    <a href="{{ path('app_posts_index') }}">Retour au sommaire</a>
+            {{ include('posts/_form.html.twig', {'button_label': 'Sauvegarder cette Publication'}) }}
+
+            <a href="{{ path('app_posts_index') }}" class="btn btn-outline-secondary w-100 mb-3">Annuler</a>  
+        </div>
+    </div>
+
 {% endblock %}

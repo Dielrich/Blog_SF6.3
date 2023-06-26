@@ -1,42 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Articles{% endblock %}
+{% block title %}Posts{% endblock %}
 
 {% block main %}
-    <h1 style="color: lime;">{{ post.title }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ post.slug }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ post.content }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {# Titre h1 #}
+    <div class="row">
+        <h1 class="h2 col-12 text-center text-primary my-4">{{ post.title|capitalize }}</h1>
+    </div>
 
-    <a href="{{ path('app_posts_index') }}">Retour au sommaire</a>
+    <div class="row mb-3">
+        <p class="h5 col-12 text-center">par <span class="text-primary-emphasis">{#{{ post.author.username }}#}</span></p>
+    </div>
 
-    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">Modifier</a>
+
+    {########### AFFICHAGE DE LA PUBLICATION ###########}
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-2 bg-body-tertiary">
+                <div class="card-header bg-primary">
+                    {# Date et auteur de la publication et de la modification si nécessaire #}
+                    <div class="py-1 text-muted">
+                        Publié le <span class="text-info-emphasis px-1">{{ post.createdAt|date('d/m/Y à H\\hi') }}</span>
+                        {% if post.updatedAt %}
+                            et modifié le <span class="text-warning-emphasis px-1">{{ post.updatedAt|date('d/m/Y à H\\hi') }}</span>
+                        {% endif %}
+                    </div> 
+                </div>     
+
+                <div class="card-body text-light">                   
+                    {# Affichage du contenu de la publication #}
+                    <div class="mb-2">
+                        {{ post.content }}
+                    </div>
+                </div>
+
+                {# Si l'utilisateur a le rôle admin, on affiche un menu avec un bouton permettant de supprimer/modifier la publication #}
+                {% if is_granted('ROLE_ADMIN') %}     
+                    <div class="card-footer d-flex d-row justify-content-evenly mt-3">
+                        <a href="{{ path('app_blog_edit_post', {'slug': post.slug}) }}" class="btn btn-outline-success pe-3">
+                            <i class="fas fa-edit me-1"></i>Modifier
+                        </a>                                
+                        {{ include('blog/_delete_form.post.html.twig') }}
+                    </div>
+                {% endif %} 
+            </div>
+        </div>
+    </div>
+
+
+    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">MODIFICATION</a>
 
     {{ include('posts/_delete_form.html.twig') }}
+
+    {# Lien pour retourner à la liste des articles #}
+    <div class="row mt-2">
+        <p class="text-center col-12">
+            <a class="btn btn-outline-info" href="{{ path('app_posts_index') }}">Retour à la liste des publications</a>
+        </p>
+    </div>    
 {% endblock %}
