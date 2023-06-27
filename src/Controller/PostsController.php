@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-//use Symfony\Component\Validator\Constraints\D;
 
 #[Route('/articles',  name: 'app_posts_' )]
 class PostsController extends AbstractController
@@ -51,7 +50,6 @@ class PostsController extends AbstractController
     }
 
 
-
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Posts $post): Response
     {
@@ -62,26 +60,33 @@ class PostsController extends AbstractController
 
 
 
+    #[IsGranted('ROLE_AUTHOR')]
     #[Route('/{slug}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Posts $post, PostsRepository $postsRepository): Response
     {
-        dump($this->getUser()->getRoles());
-        dump($post->getAuthor());
-        dump($this->getUser());
-        $form = $this->createForm(PostsType::class, $post);
-        $form->handleRequest($request);
+        // Test si l'utilisateur connecté est l'auteur de la publication
+        if ( $post->getAuthor() === $this->getUser() )   {
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            $form = $this->createForm(PostsType::class, $post);
+            $form->handleRequest($request);
 
-            $postsRepository->save($post, true);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
+                $postsRepository->save($post, true);
+
+                return $this->redirectToRoute('app_posts_index');
+            }
+
+            return $this->render('posts/edit.html.twig', [
+                'post' => $post,
+                'form' => $form,
+            ]);
+
+        } else {
+            $this->addFlash('warning', 'Seul l\'auteur peut modifier cette publication');
+            return $this->redirectToRoute('app_posts_index');
         }
 
-        return $this->render('posts/edit.html.twig', [
-            'post' => $post,
-            'form' => $form,
-        ]);
     }
 
 
