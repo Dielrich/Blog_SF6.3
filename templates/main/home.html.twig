@@ -24,10 +24,10 @@
 
     {# Affichage des dernières publications #}
     <div class="row mt-5 p-2">
-        <div class="col-12 col-md-8 offset-md-2">
+        <div class="col-12 col-lg-8 offset-lg-2">
 
             <div class="row">
-                <h2 class="col-12 text-title-h2 text-center mb-4">Nos {{posts|length}} dernières publications</h2>
+                <h2 class="col-12 text-secondary text-center mb-4">Nos {{posts|length}} dernières publications</h2>
             </div>
 
             {###### Boucle pour parcourir tous les publications à afficher #####}
@@ -46,7 +46,7 @@
 
                             <div class="card-body">
                                 {# Affichage du contenu de la publication, tronqué à 600 caractères, suivi de "..." et d'un lien "lire la suite" #}
-                                {{ post.content|slice(0, 600) }}  ...
+                                {{ post.content|slice(0, 300) }}  ...
                                 <a class="text-decoration-none link-secondary" href="{{ path('app_posts_show', {'slug': post.slug}) }}"> Lire la suite</a>
                             </div>
 
@@ -54,7 +54,7 @@
                             <div class="card-footer bg-primary text-muted py-2 fw-normal">
                                 Publié le <span class="text-warning-emphasis">{{ post.createdAt|date('d/m/Y à H\\hi') }}</span> par <span class="text-info-emphasis">{{ post.author.username }}</span>
                                 {% if post.updatedAt %}
-                                    et modifié le <span class="text-warning-emphasis">{{ post.updatedAt|date('d/m/Y à H\\hi') }}</span>
+                                    et modifié le <span class="text-warning">{{ post.updatedAt|date('d/m/Y à H\\hi') }}</span>
                                 {% endif %}
                             </div>
                         </div>

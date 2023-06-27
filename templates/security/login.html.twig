@@ -4,22 +4,22 @@
 
 {% block main %}
 
-<div class="row mt-5">
-    <div class="col-12 col-lg-8 offset-lg-2 bg-primary rounded px-2 px-lg-5 py-2 my-5">    
+<div class="row m-0 p-0">
+    <div class="col-12 col-lg-6 offset-lg-3 bg-primary rounded px-3 px-lg-5 py-2 mt-5">
 
-        <h1 class="h2 col-12 text-primary text-center my-4">Connexion</h1>
+        <h1 class="h2 col-12 text-primary text-center mt-4 mb-5">Connexion</h1>
 
         <form method="post">
 
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+            <div class="mb-4">
+                <label for="inputEmail" class="form-label required">Renseignez ici votre Email :</label>
+                <input type="email" id="inputEmail" name="email" class="form-control" value="{{ last_username }}" autocomplete="">        
+            </div>
 
-            <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-4" autocomplete="email" required autofocus>
-
-            <label for="inputPassword">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control mb-4" autocomplete="current-password" required>
+            <div class="mb-4">
+                <label for="inputPassword" class="form-label required">Renseignez ici votre Mot de Passe :</label>
+                <input type="password" id="inputPassword" name="password" class="form-control" autocomplete="">        
+            </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -27,7 +27,7 @@
                 Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
                 See https://symfony.com/doc/current/security/remember_me.html
 
-                <div class="checkbox mb-3">
+                <div class="checkbox mb-4">
                     <label>
                         <input type="checkbox" name="_remember_me"> Remember me
                     </label>
@@ -39,8 +39,12 @@
             <a href="{{ path('app_main_home') }}" class="btn w-100 btn-outline-light w-100 mb-4">Annuler</a>  
 
             <div class="col-12 mb-4">
-                <p>Pour vous inscrire : <a href="{{ path('app_register') }}" class="text-decoration-none link-primary">cliquez-ici</a></p>                
+                Pour vous inscrire : <a href="{{ path('app_register') }}" class="text-decoration-none link-primary">cliquez-ici</a>
             </div>
+
+            {% if error %}
+                <div class="alert alert-danger text-center text-uppercase">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}            
 
         </form>
 

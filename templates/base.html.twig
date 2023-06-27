@@ -37,9 +37,9 @@
                 <div class="navbar-nav">
                     <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}" href="{{ path('app_posts_index') }}">Blog</a>
                     <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{ path('app_main_contact') }}">Contactez-nous</a>
-                    {% if is_granted('ROLE_AUTHOR') %}
+                    {% if is_granted('ROLE_AUTHOR') %}    
                         <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{ path('app_posts_new') }}"> Nouvelle Publication</a>
-                    {% endif %}
+                    {% endif %}     
                 </div>
 
 
@@ -48,23 +48,20 @@
 
                     {% if app.user %}
 
-                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                         <div class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="{{ path('app_main_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <a class="nav-link link-secondary dropdown-toggle" href="{{ path('app_main_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ app.user.username }}
                           </a>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ path('app_main_home') }}">Action</a>
                             <a class="dropdown-item" href="{{ path('app_main_home') }}">Another action</a>
                             <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="{{ path('app_main_home') }}">Something else here</a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
                           </div>
                         </div>       
 
                     {% else %}
-
-                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>        
-                                        
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                     {% endif %}                                       
 
                 </div>
@@ -80,18 +77,17 @@
         </nav>
     </header>
 
-    <main class="container-lg mt-5 pt-4 px-4 px-lg-0">
+    <main class="container-lg mt-5 pt-3">
 
         {### Container pour les messages flash ###}
-        <div id="messages" class="container-lg p-0 m-0 mx-auto">
-            <div class="row p-0 m-0 text-center">
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }} col-12" role="alert">{{ message }}</div>
-                {% endfor %}
+        <div id="messages" class="row p-0 m-0">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} col-8 offset-2 text-center" role="alert">{{ message }}</div>
             {% endfor %}
-            </div>
-        </div>     
+        {% endfor %}
+        </div>
+
 
         {### MAIN ###}
         {% block main %}{% endblock %}   

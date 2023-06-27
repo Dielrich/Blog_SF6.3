@@ -5,24 +5,29 @@ namespace App\Controller;
 use App\Entity\Posts;
 use App\Form\PostsType;
 use App\Repository\PostsRepository;
-use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/articles', name: 'app_posts_')]
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+//use Symfony\Component\Validator\Constraints\D;
+
+#[Route('/articles',  name: 'app_posts_' )]
 class PostsController extends AbstractController
 {
+
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(PostsRepository $postsRepository): Response
     {
-        return $this->render('posts/index.html.twig', [
-            'posts' => $postsRepository->findAll(),
-        ]);
+
+        return $this->render('posts/index.html.twig', [ 'posts' => $postsRepository->findAll() ]);
     }
 
+
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_AUTHOR')]
     public function new(Request $request, PostsRepository $postsRepository): Response
     {
         $post = new Posts();
@@ -30,9 +35,10 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             // L'auteur est enregistré avec l'utilisateur connecté
             $post->setAuthor($this->getUser());
+            // Sauvegarde l'article en BDD
             $postsRepository->save($post, true);
 
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
@@ -44,6 +50,8 @@ class PostsController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Posts $post): Response
     {
@@ -52,13 +60,19 @@ class PostsController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{slug}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Posts $post, PostsRepository $postsRepository): Response
     {
+        dump($this->getUser()->getRoles());
+        dump($post->getAuthor());
+        dump($this->getUser());
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $postsRepository->save($post, true);
 
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
@@ -70,10 +84,12 @@ class PostsController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Posts $post, PostsRepository $postsRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('BLOG_SFjoli'.$post->getId(), $request->request->get('_token'))) {
             $postsRepository->remove($post, true);
         }
 

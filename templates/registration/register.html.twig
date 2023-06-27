@@ -4,8 +4,8 @@
 
 {% block main %}
 
-<div class="row mt-5">
-    <div class="col-12 col-lg-8 offset-lg-2 bg-primary rounded px-2 px-lg-5 py-2 my-5">
+<div class="row m-0 p-0">
+    <div class="col-12 col-lg-8 offset-lg-2 bg-primary rounded px-3 px-lg-5 py-2 mt-4">
 
         <h1 class="h2 col-12 text-primary text-center mb-4">Inscription</h1>
 
@@ -23,9 +23,17 @@
 
             {{ form_row(registrationForm.plainPassword) }}
 
-            {{ form_row(registrationForm.agreeTerms) }}
+            {# agreeTerms #} 
+            <div class="mb-5">
+                <div class="form-check">
+                    <input type="checkbox" id="registration_form_agreeTerms" name="{{ field_name(registrationForm.agreeTerms) }}" class="form-check-input" value="{{ field_value(registrationForm.agreeTerms) }}">
+                    <label class="form-check-label required" for="registration_form_agreeTerms">{{ field_label(registrationForm.agreeTerms) }}<a class="text-decoration-none link-secondary" href="" target="_blank">(plus de détails cliquez-ici)</a></label>
+                </div> 
+                {{ form_errors(registrationForm.agreeTerms) }}                
+            </div>           
 
             <button type="submit" class="btn btn-outline-info w-100 mb-4">S'incrire</button>
+
         {{ form_end(registrationForm) }}
 
         <a href="{{ path('app_login') }}" class="btn w-100 btn-outline-light w-100 mb-4">Annuler</a>          

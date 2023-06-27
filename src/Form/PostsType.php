@@ -6,6 +6,9 @@ use App\Entity\Posts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+/* TYPES */
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PostsType extends AbstractType
 {
@@ -13,7 +16,10 @@ class PostsType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content')
+
+            ->add('content', TextareaType::class, [
+                  'attr' => [ 'rows' => '10' ],
+                  ])
         ;
     }
 
@@ -21,7 +27,7 @@ class PostsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Posts::class,
-            'attr' => ['novalidate' => 'novalidate'], // comment me to reactivate the HTML5 validation 
+            'attr' => [ 'novalidate' => 'novalidate' ] // comment me to reactivate the html5 validation!
         ]);
     }
 }

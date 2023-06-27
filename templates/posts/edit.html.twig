@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier l'article{% endblock %}
+{% block title %}Modifier{% endblock %}
 
 {% block main %}
-    <h1 style="color: lime;">Modifier l'article</h1>
-<div class="container-fluid">
-    <div class="row justify-content-center align-items-center">
-        {{ include('posts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-        <div class="col-3">{{ include('posts/_delete_form.html.twig') }}</div>
+<div class="row m-0 p-0">
+    <div class="col-12 bg-primary rounded px-3 px-lg-5 py-4 mt-4">
+        <h1 class="h2 col-12 text-primary text-center mb-5">Modifier la publication n° <span class="text-info">{{ post.id }}</span></h1>
 
-        <div class="col-3"><a class="btn btn-primary" href="{{ path('app_posts_index') }}">Retour au sommairre</a></div>
+        {{ include('posts/_form.html.twig', {'button_label': 'Sauvegarder les modifications'}) }}
+
+        <a href="{{ path('app_posts_index') }}" class="btn btn-outline-secondary w-100 mb-3">Annuler</a>
     </div>
 </div>
+
 {% endblock %}

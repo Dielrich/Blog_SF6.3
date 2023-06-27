@@ -4,14 +4,14 @@
 
 {% block main %}
 
-    <div class="row mt-5">
-        <div class="col-12 bg-primary rounded p-4">
-            <h1 class="h2 col-12 text-primary text-center mb-5">Nouvelle publication</h1>
+<div class="row m-0 p-0">
+    <div class="col-12 bg-primary rounded px-3 px-lg-5 py-4 mt-4">
+        <h1 class="h2 col-12 text-primary text-center mb-5">Nouvelle publication</h1>
 
-            {{ include('posts/_form.html.twig', {'button_label': 'Sauvegarder cette Publication'}) }}
+        {{ include('posts/_form.html.twig', {'button_label': 'Sauvegarder cette Publication'}) }}
 
-            <a href="{{ path('app_posts_index') }}" class="btn btn-outline-secondary w-100 mb-3">Annuler</a>  
-        </div>
+        <a href="{{ path('app_posts_index') }}" class="btn btn-outline-secondary w-100 mb-3">Annuler</a>
     </div>
+</div>
 
 {% endblock %}
