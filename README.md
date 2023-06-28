@@ -39,6 +39,11 @@ symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 composer require symfony/google-mailer (Bridge de connexion à gmail)
 ```
 
+## FIXTURES :
+```
+composer require fakerphp/faker (Pour générer des données plus ou moins réaliste)
+```
+
 ## SLUG :
 composer require stof/doctrine-extensions-bundle
 ***
